@@ -69,6 +69,18 @@ class TestScorePair(unittest.TestCase):
         result2 = score_pair(record_c, record_d, plan)
         self.assertEqual(result2.confidence, 1.0)
 
+        # 2-digit year 2000 (03.11.00 should map to 2000-11-03)
+        record_g = {"date_of_birth": "2000-11-03"}
+        record_h = {"date_of_birth": "03.11.00"}
+        result4 = score_pair(record_g, record_h, plan)
+        self.assertEqual(result4.confidence, 1.0)
+
+        # Explicit 4-digit year should not be altered by 2-digit logic
+        record_i = {"date_of_birth": "2025-06-15"}
+        record_j = {"date_of_birth": "2025-06-15"}
+        result5 = score_pair(record_i, record_j, plan)
+        self.assertEqual(result5.confidence, 1.0)
+
         # Different dates
         record_e = {"date_of_birth": "1968-12-09"}
         record_f = {"date_of_birth": "1968-12-10"}

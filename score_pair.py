@@ -78,18 +78,19 @@ def _parse_date(val: object) -> date | None:
         "%Y-%m-%d",
         "%d/%m/%Y",
         "%d-%b-%Y",
-        "%d.%m.%y",
         "%d-%m-%Y",
-        "%d/%m/%y",
         "%d.%m.%Y",
         "%Y/%m/%d",
+        "%d.%m.%y",
+        "%d/%m/%y",
+        "%d-%m-%y",
     ]
     for fmt in formats:
         try:
             dt = datetime.strptime(s, fmt).date()
             # Handle 2-digit year interpretation: historical birth dates cannot be in the future.
-            # Python's strptime maps 00-68 to 2000-2068; adjust future years back 100 years.
-            if dt.year > 2024:
+            # Python's strptime %y maps 00-68 to 2000-2068; adjust future 2-digit years back 100 years.
+            if "%y" in fmt and dt > date.today():
                 dt = dt.replace(year=dt.year - 100)
             return dt
         except (ValueError, OverflowError):

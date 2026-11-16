@@ -411,7 +411,7 @@ def build_pdf(filename="Greyquill_FDE_Entity_Resolution_Explanation.pdf"):
           " R0135 was born in <b>1968</b> (matching duplicate record R0161 which"
           " records <code>09-Dec-1968</code>). If uncorrected, date comparison"
           " returns 0.0, deflating confidence. Our implementation applies a"
-          " historical sanity check: if <code>parsed_year &gt; 2024</code>, we"
+          " historical sanity check: if <code>'%y' in fmt and dt &gt; date.today()</code>, we"
           " deduct 100 years (<code>dt = dt.replace(year=dt.year - 100)</code>)."
           " This yields 100% calendar accuracy across all records.",
           body_style,
