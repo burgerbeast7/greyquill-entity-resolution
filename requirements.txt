@@ -1,0 +1,8 @@
+# No external dependencies required.
+# This project uses only the Python 3.9+ Standard Library:
+# - dataclasses
+# - datetime
+# - itertools
+# - re
+# - unittest
+# - csv
